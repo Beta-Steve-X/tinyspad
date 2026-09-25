@@ -1,0 +1,95 @@
+entity \std::cdc::sync2[1545] ((clk, clk, bool), (input, input, bool)) -> bool {
+	reg(clk) sync1: bool = input
+	reg(clk) sync2: bool = sync1
+} => sync2
+
+entity \std::cdc::sync2_bool ((clk, clk, bool), (input, input, bool)) -> bool {
+	let e542: bool = Instance(\std::cdc::sync2[1545] )(clk, input)
+} => e542
+
+entity \std::conv::tri_to_bool ((t, t, bool)) -> bool {
+	let e826: bool = Instance(\std::conv::impl#12::as_bool )(t)
+} => e826
+
+entity \std::io::rising_edge ((clk, clk, bool), (value, value, bool)) -> bool {
+	reg(clk) old_value: bool = value
+	let e2190: [bool; 1] = ConstructArray(old_value)
+	let e2189: [bool; 1] = BitwiseNot(e2190)
+	const e2191: uint<0> = 0
+	let e1068: bool = IndexArray(e2189, e2191)
+	let e2198: [bool; 1] = ConstructArray(value)
+	let e2199: [bool; 1] = ConstructArray(e1068)
+	let e2197: [bool; 1] = BitwiseAnd(e2198, e2199)
+	const e2200: uint<0> = 0
+	let e2196: bool = IndexArray(e2197, e2200)
+} => e2196
+
+entity \std::io::falling_edge ((clk, clk, bool), (value, value, bool)) -> bool {
+	reg(clk) old_value: bool = value
+	let e2208: [bool; 1] = ConstructArray(value)
+	let e2207: [bool; 1] = BitwiseNot(e2208)
+	const e2209: uint<0> = 0
+	let e2206: bool = IndexArray(e2207, e2209)
+	let e2216: [bool; 1] = ConstructArray(e2206)
+	let e2217: [bool; 1] = ConstructArray(old_value)
+	let e2215: [bool; 1] = BitwiseAnd(e2216, e2217)
+	const e2218: uint<0> = 0
+	let e2214: bool = IndexArray(e2215, e2218)
+} => e2214
+
+entity \tinyspad::design ((clk, clk, bool), (rst, rst, bool), (ui_in, ui_in, [bool; 8])) -> uint<8> {
+	const e1759: uint<3> = 0
+	let e1757: bool = IndexArray(ui_in, e1759)
+	let e1756: bool = Instance(\std::conv::impl#10::as_clock )(e1757)
+	let e1761: [bool; 6] = RangeIndexArray(2, 8)(ui_in)
+	let e1760: uint<6> = Instance(\std::conv::impl#9::as_uint[1546] )(e1761)
+	reg(e1756) addr: uint<6> = e1760
+	let e1765: uint<8> = ZeroExtend(addr)
+} => e1765
+
+entity tt_um_example((#[no_mangle]clk, clk, bool), (#[no_mangle]rst_n, rst_n, bool), (#[no_mangle]ui_in, ui_in, [bool; 8]), (#[no_mangle]uo_out, uo_out, inv (&(uint<8>))), (#[no_mangle]uio_in, uio_in, uint<8>), (#[no_mangle]uio_out, uio_out, inv (&([bool; 8]))), (#[no_mangle]uio_oe, uio_oe, inv (&([bool; 8]))), (#[no_mangle]ena, ena, bool)) -> () {
+	let e2226: [bool; 1] = ConstructArray(rst_n)
+	let e2225: [bool; 1] = BitwiseNot(e2226)
+	const e2227: uint<0> = 0
+	let rst: bool = IndexArray(e2225, e2227)
+	const e1774: bool = false
+	let e1773: [bool; 8] = ConstructArray(e1774, e1774, e1774, e1774, e1774, e1774, e1774, e1774)
+	let e1772: &([bool; 8]) = ConstructCopyView(e1773)
+	set uio_out = e1772
+	const e1779: bool = false
+	let e1778: [bool; 8] = ConstructArray(e1779, e1779, e1779, e1779, e1779, e1779, e1779, e1779)
+	let e1777: &([bool; 8]) = ConstructCopyView(e1778)
+	set uio_oe = e1777
+	let output: uint<8> = Instance(\tinyspad::design )(clk, rst, ui_in)
+	let e1787: &(uint<8>) = ConstructCopyView(output)
+	set uo_out = e1787
+	let e1767: () = Nop()
+} => e1767
+
+entity \std::conv::impl#9::as_uint[1546] ((self, self, [bool; 6])) -> uint<6> {
+	let e860: uint<6> = BlackBoxAlias(self)
+} => e860
+
+entity \std::conv::impl#10::as_clock ((self, self, bool)) -> bool {
+	let e870: bool = BlackBoxAlias(self)
+} => e870
+
+entity \std::conv::impl#10::as_uint ((self, self, bool)) -> uint<1> {
+	let e874: uint<1> = BlackBoxAlias(self)
+} => e874
+
+entity \std::conv::impl#11::as_bool ((self, self, bool)) -> bool {
+	let e885: bool = BlackBoxAlias(self)
+} => e885
+
+entity \std::conv::impl#12::as_bool ((self, self, bool)) -> bool {
+	let e893: bool = BlackBoxAlias(self)
+} => e893
+
+entity \std::default::impl#17::default () -> bool {
+	const e969: bool = false
+} => e969
+
+entity \std::default::impl#18::default () -> () {
+	let e971: () = ConstructTuple()
+} => e971

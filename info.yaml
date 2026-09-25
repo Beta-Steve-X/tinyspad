@@ -1,10 +1,10 @@
 
 # Tiny Tapeout project information
 project:
-  title:        "1000-counter"      # Project title
+  title:        "tinyspad"      # Project title
   author:       "Beta-Steve-X"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "null; Built on play.spade-lang.org"      # One line description of what your project does
+  description:  "tinyspad"      # One line description of what your project does
   language:     "Spade" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     10000       # Clock frequency in Hz (or 0 if not applicable)
 
